@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.head{
+    animation: fadeIn 1s ease-in both;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translate(0, -20%);
+	}
+	to {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+
+@keyframes fadeInTop {
+	from {
+		opacity: 0;
+		transform: translate(0, 20%);
+	}
+	to {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+.newsBox{
+    animation: fadeInTop 1s ease-in both 0.8s;
+}
