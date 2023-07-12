@@ -1,20 +1,34 @@
+import { useQuery } from '@tanstack/react-query'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import loading from '../loadingIcon.gif'
 
 export default function News() {
-  const [newsData, setNewsData] = useState([]);
+  const {data, isLoading, isError} = useQuery(["news"], async () =>{
+    return Axios.get("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=35388c35a7ac4687b8915eec0e2bb1a7")
+    .then((res) => res.data.articles);
+  })
   
-  useEffect(()=>{
-     Axios.get('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=35388c35a7ac4687b8915eec0e2bb1a7')
-     .then(res =>{
-      setNewsData(res.data.articles);
-     })
-  }, [])
+  if(isError){
+    return (
+      <div className='text-center mt-12'>
+         <h3 className='text-4xl font-bold p-16 text-red-800'>Some error occured while fetching data</h3>
+      </div>
+    )
+  }
 
-  console.log(newsData)
- 
-  const news = newsData.map((data, key)=>{
-    if(data.urlToImage !== null){
+  
+  if(isLoading){
+    return (
+      <div className='flex justify-center'>
+        <img src={loading} className="gif mt-6" alt="loading"/>
+      </div>
+    )
+  }
+
+  console.log(data);
+  const news = data.map((data, key)=>{
+    if(data.urlToImage){
       return (
         <div className='newsBox p-6 m-8 max-lg:m-4 rounded-2xl shadow-2xl' key={key}>
           <div className='h-[460px] max-xl:h-[350px] max-lg:h-[310px] max-md:h-[220px] flex flex-col items-center'>   
@@ -32,12 +46,12 @@ export default function News() {
       )
     }
   })
-
+  
   return (
     <>
     <div className='flex justify-center'>
      <div className="container grid grid-cols-3 max-md:grid-cols-2 mt-4">
-        {news}
+       {news}
      </div>
     </div>
     </>

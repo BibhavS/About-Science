@@ -5,7 +5,7 @@
 }
 
 .head{
-    animation: fadeIn 1s ease-in both;
+    animation: fadeIn 1s ease-in both 0.6s;
 }
 
 @keyframes fadeIn {
@@ -32,5 +32,5 @@
 }
 
 .newsBox{
-    animation: fadeInTop 1s ease-in both 0.8s;
+    animation: fadeInTop 1s ease-in both 1s;
 }
