@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import Axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import loading from '../loadingIcon.gif'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default function News() {
   const {data, isLoading, isError} = useQuery(["news"], async () =>{
@@ -9,6 +11,10 @@ export default function News() {
     .then((res) => res.data.articles);
   })
   
+  useEffect(()=>{
+     AOS.init({duration: 1500, once: true})
+  }, [])
+
   if(isError){
     return (
       <div className='text-center mt-12'>
@@ -30,7 +36,7 @@ export default function News() {
   const news = data.map((data, key)=>{
     if(data.urlToImage){
       return (
-        <div className='newsBox p-6 m-8 max-lg:m-4 rounded-2xl shadow-2xl' key={key}>
+        <div className='newsBox p-6 m-8 max-lg:m-4 rounded-2xl shadow-2xl' data-aos='fade-up' key={key}>
           <div className='h-[460px] max-xl:h-[350px] max-lg:h-[310px] max-md:h-[220px] flex flex-col items-center'>   
            <img src={data.urlToImage} alt="newsImg" className='h-[250px] max-xl:h-[180px] max-lg:h-[150px] max-md:h-[100px]' />
            <h4 className='text-[1.45rem] text-center font-bold mt-4 max-xl:text-sm max-lg:text-xs max-md:text-[0.5rem]'>{data.title}</h4>
