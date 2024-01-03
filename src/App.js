@@ -1,7 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import News from './components/News';
-import Footer from './components/Footer';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
      <QueryClientProvider client={client}>    
       <Navbar/>
       <News/>
-      <Footer/>
      </QueryClientProvider>
     </>
   );
